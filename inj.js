@@ -13,7 +13,6 @@
             if (offset > last) {
                 frag.appendChild(document.createTextNode(text.slice(last, offset)));
             }
-            // ...
             const span = document.createElement("span");
             span.className = "inv";
 
@@ -23,10 +22,8 @@
                 .replace(/\x1B\\u([a-fA-F0-9]{4})/gu,l=>String.fromCodePoint( '0x'+l.replace('\x1b\\u','') ));
 
             frag.appendChild(span);
-            // ...
             last = offset + match.length;
         });
-        // texto restante
         if (last < text.length) {
             frag.appendChild(document.createTextNode(text.slice(last)));
         }
@@ -43,7 +40,7 @@
         const nodes = [];
 
         while (node = walker.nextNode()) {
-            nodes.push(node); // evita modificar enquanto percorre
+            nodes.push(node);
         }
 
         for (const node of nodes) {
