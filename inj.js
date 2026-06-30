@@ -62,7 +62,7 @@
 });
 
     let style = document.createElement('style')
-    style.innerHTML = 'span.inv {\n  opacity: 0.556;\n  font-size: small;\n}'
+    style.textContent = 'span.inv {\n  opacity: 0.556;\n  font-size: small;\n}'
     let load = ()=>{
         processTree(document.body);
         mo.observe(document.body, {childList: true,subtree: true});
