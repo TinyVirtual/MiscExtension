@@ -7,6 +7,19 @@
 
     let style = document.createElement('style')
     style.innerHTML = 'span.inv {\n  opacity: 0.556;\n  font-size: small;\n}'
-    document.head.appendChild(style)
-    mo.observe(document.body) //this will cause a dogdamn lot of lag
+    let load = ()=>{
+        document.head.appendChild(style)
+        mo.observe(document.body) //this will cause a dogdamn lot of lag
+    }
+    await new Promise(r=>{
+        if(document.readyState == 'complete'){
+            r()
+        } else {
+            while(document.readyState != 'complete'){
+                await new Promise(p=>setTimeout(p,100))
+            }
+            r()
+        }
+    })
+    load()
 })()
