@@ -1,11 +1,21 @@
 (async()=>{
+    function isEditable(node) {
+        let el = node.parentElement;
+        while (el) {
+            if (el.isContentEditable) return true;
+            if (el.matches("textarea,input")) return true;
+            el = el.parentElement;
+        }
+        return false;
+    }
     function processTextNode(node) {
         const text = node.nodeValue;
 
         if (!/[\u{E0000}-\u{E007F}]/u.test(text))
             return;
-
-        if (node.classList?.contains('unicode-tag-invisible'))
+        if (node.parentElement?.closest(".unicode-tag-invisible"))
+            return;
+        if (isEditable(node))
             return;
 
         const frag = document.createDocumentFragment();
