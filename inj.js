@@ -5,6 +5,9 @@
         if (!/[\u{E0000}-\u{E007F}]/u.test(text))
             return;
 
+        if (node.classList?.contains('unicode-tag-invisible'))
+            return;
+
         const frag = document.createDocumentFragment();
 
         let last = 0;
@@ -16,10 +19,12 @@
             const span = document.createElement("span");
             span.className = "unicode-tag-invisible";
 
-            span.textContent = [...match]
+            span.setAttribute('data-visible-text', [...match]
                 .map(c => String.fromCodePoint(c.codePointAt(0) - 0xE0000))
                 .join("")
-                .replace(/\x1B\\u([a-fA-F0-9]{4})/gu,l=>String.fromCodePoint( '0x'+l.replace('\x1b\\u','') ));
+                .replace(/\x1B\\u([a-fA-F0-9]{4})/gu,l=>String.fromCodePoint( '0x'+l.replace('\x1b\\u','') ))
+            );
+            span.textContent = match;
 
             frag.appendChild(span);
             last = offset + match.length;
@@ -62,7 +67,7 @@
     });
 
     let style = document.createElement('style')
-    style.textContent = 'span.unicode-tag-invisible {\n  opacity: 0.556;\n  font-size: small;\n}'
+    style.textContent = 'span.unicode-tag-invisible::before {\n  content: attr(data-visible-text);\n  opacity: 0.556;\n  font-size: small;\n}'
     let load = ()=>{
         processTree(document.body);
         mo.observe(document.body, {childList: true,subtree: true});
