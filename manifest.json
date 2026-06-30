@@ -1,0 +1,28 @@
+{
+  "name": "Tiny web tools",
+  "description": "car crash",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "run-code": {
+      "suggested_key": {
+        "default": "Alt+Shift+1"
+      },
+      "description": "Opens toys menu"
+    }
+  },
+  
+
+
+  "icons": {
+    "128": "icon.png"
+  }
+}
