@@ -14,7 +14,7 @@
                 frag.appendChild(document.createTextNode(text.slice(last, offset)));
             }
             const span = document.createElement("span");
-            span.className = "inv";
+            span.className = "unicode-tag-invisible";
 
             span.textContent = [...match]
                 .map(c => String.fromCodePoint(c.codePointAt(0) - 0xE0000))
@@ -50,19 +50,19 @@
 
 
     const mo = new MutationObserver(mutations => {
-    for (const mutation of mutations) {
-        for (const node of mutation.addedNodes) {
-            if (node.nodeType === Node.TEXT_NODE) {
-                processTextNode(node);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                processTree(node);
+        for (const mutation of mutations) {
+            for (const node of mutation.addedNodes) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    processTextNode(node);
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    processTree(node);
+                }
             }
         }
-    }
-});
+    });
 
     let style = document.createElement('style')
-    style.textContent = 'span.inv {\n  opacity: 0.556;\n  font-size: small;\n}'
+    style.textContent = 'span.unicode-tag-invisible {\n  opacity: 0.556;\n  font-size: small;\n}'
     let load = ()=>{
         processTree(document.body);
         mo.observe(document.body, {childList: true,subtree: true});
