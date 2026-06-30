@@ -1,0 +1,7 @@
+  "content_scripts_disabled": [
+    {
+      "matches": ["https://web.whatsapp.com/*"],
+      "js": ["blur.js"],
+      "run_at": "document_end"
+    }
+  ],
