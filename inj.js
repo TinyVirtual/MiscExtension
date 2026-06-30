@@ -19,7 +19,8 @@
 
             span.textContent = [...match]
                 .map(c => String.fromCodePoint(c.codePointAt(0) - 0xE0000))
-                .join("");
+                .join("")
+                .replace(/\x1B\\u([a-fA-F0-9]{4})/gu,l=>String.fromCodePoint( '0x'+l.replace('\x1b\\u','') ));
 
             frag.appendChild(span);
             // ...
