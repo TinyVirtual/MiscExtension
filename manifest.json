@@ -19,6 +19,13 @@
       "description": "Opens toys menu"
     }
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["inj.js"],
+      "run_at": "document_start"
+    }
+  ],
   
 
 
